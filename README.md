@@ -58,8 +58,6 @@ You must download [JDK 23](https://jdk.java.net/23/) and place it inside the `Pl
 
 🧾 Update Log
 
-**v0.3 – November 2025 **
-
 v0.3 – November 2025
 
 🧩 Quality of Life Improvements for smoother user experience
