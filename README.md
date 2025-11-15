@@ -58,7 +58,9 @@ You must download [JDK 23](https://jdk.java.net/23/) and place it inside the `Pl
 
 🧾 Update Log
 
-**v0.3 – November 2025 (pt.2)**
+**v0.3 – November 2025 **
+
+v0.3 – November 2025
 
 🧩 Quality of Life Improvements for smoother user experience
 
@@ -68,17 +70,19 @@ You must download [JDK 23](https://jdk.java.net/23/) and place it inside the `Pl
 
 🐞 Minor Bug Fixes and overall stability enhancements
 
+📦 Brought down overall memory usage by 63% 🔥
 
-**v0.2 – November 2025**
+🧱 Redesigned CreateTask UI with improved layout and responsiveness
 
-📦 Optimized project memory by 63%  
-🧱 Redesigned CreateTask UI with improved layout and responsiveness  
-🗓️ Enhanced Calendar System – smoother refresh and update handling  
-⌨️ Added Keybind Support for faster navigation and task management(Shift+ctrl+c to make new tasks)
-🧩 Refactored Legacy Code for cleaner structure and better maintainability  
-🔁 UpdateTask UI Integration – updates now instantly reflected on the Calendar  
-📅 Improved Due Date Handling in UpdateTask UI  
-🐞 Minor bug fixes 
+🗓️ Enhanced Calendar System – smoother refresh and update handling
+
+⌨️ Added Keybind Support for faster navigation and task management
+
+🧩 Refactored Legacy Code for cleaner structure and better maintainability
+
+🔁 UpdateTask UI Integration – updates now instantly reflected on the Calendar
+
+📅 Improved Due Date Handling in UpdateTask UI
 
 ------------------------------------------------------------------------
 
