@@ -84,25 +84,16 @@ v0.3 – November 2025
 - Improved Due Date Handling in UpdateTask UI
 
 ------------------------------------------------------------------------
-
-🤝 Contributing
-
 Contributions are welcome!
 - Open an issue for bugs or feature requests.
 - Submit pull requests for improvements.
-
 ------------------------------------------------------------------------
-
-📧 Contact
-
--   Author: KSaifStack
--   For questions or feature requests, open an issue.
+  - Author: KSaifStack
+  - For questions or feature requests, open an issue.
 
 ------------------------------------------------------------------------
 # License
 This project is licensed under the MIT License – see the LICENSE file for details
 
 ------------------------------------------------------------------------
-PlanForge – More than just a calendar. Organize, learn, and achieve!
-
 <img width="100" height="100" alt="483128123-fe46aa5b-5b5b-4b19-9e03-2f0869f1bd2c" src="https://github.com/user-attachments/assets/142dcb77-abfb-4551-86cd-4035ab3c019f" />
