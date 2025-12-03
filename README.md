@@ -12,17 +12,17 @@ An application built for those who want more than a basic calendar.
 
 # Features
 
--   Smart Task Organization: Automatically categorize tasks, assessments, and activities.
--   Context-Aware Reminders: Never miss a deadline with timely alerts.
--   Precise Due Dates: Schedule tasks with actionable due dates.
--   Custom UI: Built with JavaFX, custom fonts (Lexend).
+- Smart Task Organization: Automatically categorize tasks by ranks and groups rather than listing them one by one.
+- Context-Aware Reminders: Never miss a deadline with OS intergrated alerts.
+- Precise Due Dates: Schedule tasks due dates within seconds of each other.
+- Custom UI: Built with JavaFX and CSS.  
 
 ------------------------------------------------------------------------
 
 # Tech Stack
 
 -   Language: Java
--   Framework: JavaFX
+-   Framework: JavaFX, CSS
 -   Topics: Application, Calendar, To-Do List, Task Management
 
 ------------------------------------------------------------------------
