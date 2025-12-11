@@ -61,27 +61,22 @@ You must download [JDK 23](https://jdk.java.net/23/) and place it inside the `Pl
 
 v0.3 – November 2025
 
-- Quality of Life Improvements for smoother user experience
+**Performance & Optimization**
+-  Reduced memory usage by **63%** through code optimization
+-  Enhanced task sorting algorithm for faster rendering
+-  Refactored legacy codebase for better maintainability
 
-- Fixed Sun & Moon Reset Issue – now fully live-synced to track post-noon state
+**UI/UX Improvements**
+-  Redesigned CreateTask UI with cleaner layout and better responsiveness
+-  Enhanced calendar refresh logic with instant update propagation
+-  Fixed Sun & Moon icon reset issue with live theme synchronization
+-  Revamped clock system with improved real-time accuracy
+-  Added keyboard shortcuts for power users (`Ctrl+Shift+C`)
 
-- Clock System Revamp with improved real-time updates
-
-- Minor Bug Fixes and overall stability enhancements
-
-- Brought down overall memory usage by 63% 🔥
-
-- Redesigned CreateTask UI with improved layout and responsiveness
-
-- Enhanced Calendar System – smoother refresh and update handling
-
-- Added Keybind Support for faster navigation and task management
-
-- Refactored Legacy Code for cleaner structure and better maintainability
-
-- UpdateTask UI Integration – updates now instantly reflected on the Calendar
-
-- Improved Due Date Handling in UpdateTask UI
+**Bug Fixes & Quality of Life**
+-  UpdateTask changes now instantly reflected in calendar view
+-  Improved due-date validation and handling logic
+-  Smoother theme transitions between dark/light modes
 
 ------------------------------------------------------------------------
 Contributions are welcome!
