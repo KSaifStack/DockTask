@@ -1,4 +1,4 @@
-  # PlanForge <img width="30" height="30" alt="483128123-fe46aa5b-5b5b-4b19-9e03-2f0869f1bd2c" src="https://github.com/user-attachments/assets/142dcb77-abfb-4551-86cd-4035ab3c019f" />
+  # DockTask <img width="30" height="30" alt="483128123-fe46aa5b-5b5b-4b19-9e03-2f0869f1bd2c" src="https://github.com/user-attachments/assets/142dcb77-abfb-4551-86cd-4035ab3c019f" />
 
 
 An intelligent daily planner that organizes tasks, assessments, and activities with smart categorization. Get context-aware reminders, precise due dates, and a polished interface.
@@ -30,30 +30,30 @@ An application built for those who want more than a basic calendar.
 # Installation 
 
 **Important:**  
-You must download [JDK 23](https://jdk.java.net/23/) and place it inside the `PlanForge` directory before running the application.
+You must download [JDK 23](https://jdk.java.net/23/) and place it inside the `DockTask` directory before running the application.
 
 1.  Clone the repository:
 
     ```sh
-    git clone https://github.com/KSaifStack/PlanForge.git
-    cd PlanForge
+    git clone https://github.com/KSaifStack/DockTask.git
+    cd DockTask
     ```
 
-2.  Download JDK 23 from [jdk.java.net/23](https://jdk.java.net/23/) and extract it directly into the `PlanForge` folder.  
+2.  Download JDK 23 from [jdk.java.net/23](https://jdk.java.net/23/) and extract it directly into the `DockTask` folder.  
     The directory structure should look like this:
     ```
-    PlanForge/
+    DockTask/
       ├── jdk-23/
-      ├── PlanForge.exe
+      ├── DockTask.exe
       ├── src/
       ├── README.md
       └── ... (other files)
     ```
 
-3.  **To Run PlanForge:**  
-    Simply double-click on `PlanForge.exe` in the `PlanForge` folder to start the application.
+3.  **To Run DockTask:**  
+    Simply double-click on `DockTask.exe` in the `DockTask` folder to start the application.
 
-    > **Note:** The application requires JDK 23 to be present inside the `PlanForge` directory in order to work properly.
+    > **Note:** The application requires JDK 23 to be present inside the `DockTask` directory in order to work properly.
 
 ------------------------------------------------------------------------
 
