@@ -30,6 +30,27 @@ This project pushed me to think beyond basic functionality and focus on creating
 
 ---
 
+##  Demo
+
+> **Watch DockTask in action!** [See the demo video](https://www.youtube.com/watch?v=u5oVhOg2F70) or download the installer below to try it yourself.
+
+
+
+
+
+
+
+https://github.com/user-attachments/assets/67e9159e-ff12-4f21-9128-568c9d12a31a
+
+
+
+
+
+
+
+
+---
+
 ##  Download
 
 | Platform | Download | Status |
