@@ -24,7 +24,7 @@
 
 I built DockTask to solve my own problem of managing multiple classwork deadlines while learning JavaFX development. What started as a simple to-do list evolved into a full-featured task management system as I explored UI/UX design, data persistence strategies, and memory optimization techniques. 
 
-The core challenge? Basic calendar apps treat "3 PM" and "3:00:47 PM" the same — but when you have multiple assignments due at midnight, lab reports due minutes apart, and group project submissions with precise timing requirements, **seconds matter**.
+The core challenge? Basic calendar apps treat "3 PM" and "3:00:47 PM" the same, but when you have multiple assignments due at midnight, lab reports due minutes apart, and group project submissions with precise timing requirements, **seconds matter**.
 
 This project pushed me to think beyond basic functionality and focus on creating a polished, user-friendly experience. **Now it's the tool I use daily to keep my academic life neat and organized.**
 
