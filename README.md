@@ -234,7 +234,7 @@ In version 0.1, countdown timers for completed or removed tasks continued runnin
 
 ### Windows
 
-1. Download [DockTask-Setup-0.3.exe](https://github.com/KSaifStack/DockTaskWorkSpace/releases/download/0.3/DockTask-Setup-0.3.exe)
+1. Download [DockTask-Setup-0.5.exe](https://github.com/KSaifStack/DockTask/releases/download/0.5/DockTask-Setup-v0.5.exe)
 2. Run the installer and follow the on-screen prompts (administrator privileges recommended)
 3. Launch DockTask from your Desktop or Start Menu
 
