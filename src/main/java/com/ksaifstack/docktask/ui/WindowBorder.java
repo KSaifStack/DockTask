@@ -1,3 +1,6 @@
+package com.ksaifstack.docktask.ui;
+
+import com.ksaifstack.docktask.util.themeManager;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,8 +30,8 @@ public class WindowBorder extends NfxStage {
 
     private double xOffset = 0;
     private double yOffset = 0;
-    private static final Image whiteIcon = new Image(WindowBorder.class.getResourceAsStream("images/lightIcon.png"));
-    private static final Image darkIcon = new Image(WindowBorder.class.getResourceAsStream("images/darkIcon.png"));
+    private static final Image whiteIcon = new Image(WindowBorder.class.getResourceAsStream("/images/lightIcon.png"));
+    private static final Image darkIcon = new Image(WindowBorder.class.getResourceAsStream("/images/darkIcon.png"));
     private static final ImageView pic = new ImageView(whiteIcon);
 
     public WindowBorder(String title, Region content, double width, double height) {
@@ -96,7 +99,7 @@ public class WindowBorder extends NfxStage {
         // Scene
         Scene scene = new Scene(rootPane, width, height);
         scene.setFill(null); // rounded corners support
-        scene.getStylesheets().add(getClass().getResource("LightTheme.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/LightTheme.css").toExternalForm());
         themeManager.setScene(scene);
         setScene(scene);
 
@@ -143,7 +146,7 @@ public class WindowBorder extends NfxStage {
 
     }
     public static void logOut(Scene scene){
-        scene.getStylesheets().add(WindowBorder.class.getResource("LightTheme.css").toExternalForm());
+        scene.getStylesheets().add(WindowBorder.class.getResource("/css/LightTheme.css").toExternalForm());
     }
 
 

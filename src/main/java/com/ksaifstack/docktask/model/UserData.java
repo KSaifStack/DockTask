@@ -1,4 +1,4 @@
-/**
+package com.ksaifstack.docktask.model; /**
  * Saves the Username and Password from the file
  * Allows the user to Manage/login to get,change,modfiy and delete tasks
  * Kinda replaced the whole idea of the Arraylist...

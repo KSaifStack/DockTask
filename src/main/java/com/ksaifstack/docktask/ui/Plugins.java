@@ -1,4 +1,4 @@
-//Plugin Ui for allowing extra features to be used
+package com.ksaifstack.docktask.ui;//Plugin Ui for allowing extra features to be used
 //TO BE WORKED ON
 import javafx.scene.control.*;
 import javafx.scene.layout.*;

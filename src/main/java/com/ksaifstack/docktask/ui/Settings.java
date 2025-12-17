@@ -1,4 +1,4 @@
-
+package com.ksaifstack.docktask.ui;
 /**
 Allows the user to modify the following options:
 @code Dark Mode-Allows user to change themes
@@ -11,6 +11,9 @@ Remove create task text at the bottom
 
  **/
 
+import com.ksaifstack.docktask.model.UserData;
+import com.ksaifstack.docktask.ui.WindowBorder;
+import com.ksaifstack.docktask.util.themeManager;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -31,7 +34,7 @@ public class Settings {
     public Settings(String username){
         this.username=username;
     }
-    public Pane getContent(Font lexend14,Font lexend32,WindowBorder window,TaskUi t){
+    public Pane getContent(Font lexend14, Font lexend32, WindowBorder window, TaskUi t){
         //Allows for grayed out background
         Pane pane = new Pane();
         pane.setPrefSize(2000, 2000);

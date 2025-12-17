@@ -1,6 +1,10 @@
 //Starting Page/LoginUi/(Kareem right here)
+package com.ksaifstack.docktask.ui;
+
+
 import java.io.InputStream;
 
+import com.ksaifstack.docktask.model.UserData;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -25,7 +29,7 @@ public class LoginUi extends Application  {
     private static final String BG_COLOR = "#ffffff";
     private static final String TEXT_COLOR = "#1b1b1b";
     private static final String BORDER_COLOR = "#626262";
-    private static final String FONT_PATH = "/resources/fonts/Lexend/hi;";
+    private static final String FONT_PATH = "/fonts/lexend.ttf;";
     private static boolean startup = true;
     private WindowBorder appWindow;
     public LoginUi(){
@@ -126,8 +130,8 @@ Self made splash screen using StageStyle.Transparent.
             root.getChildren().add(logo);
 
 
-            Font customFont = loadCustomFont(FONT_PATH, 18);
-            Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/lexend.ttf"), 32);
+            //Font customFont = loadCustomFont(FONT_PATH, 18);
+            Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/lexend.ttf"), 32);
             //Title
             Label Title = new Label("DockTask");
             Title.setLayoutX(308);
@@ -322,7 +326,7 @@ Self made splash screen using StageStyle.Transparent.
         logo.setLayoutY(50);
 
         // Title
-        Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/lexend.ttf"), 32);
+        Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/lexend.ttf"), 32);
         Label Title = new Label("DockTask");
         Title.setLayoutX(308);
         Title.setLayoutY(0);

@@ -1,4 +1,5 @@
-// UI for creating tasks
+package com.ksaifstack.docktask.ui;// UI for creating tasks
+import com.ksaifstack.docktask.model.UserData;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,9 +28,9 @@ public class CreateTaskUi {
         this.onUpdate=onUpdate;
     }
 
-    Font lexend14 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lexend.ttf"), 14);
-    Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lexend.ttf"), 32);
-    Font lexend30 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lexend.ttf"), 20);
+    Font lexend14 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 14);
+    Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 32);
+    Font lexend30 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 20);
 
     int storeNum;
     LocalDateTime taskTime;

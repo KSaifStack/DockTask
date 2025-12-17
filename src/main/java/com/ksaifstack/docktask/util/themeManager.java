@@ -1,3 +1,5 @@
+package com.ksaifstack.docktask.util;
+
 import javafx.scene.Scene;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +24,11 @@ public class themeManager {
         mainScene.getStylesheets().clear();
         if (darkMode) {
             mainScene.getStylesheets().add(
-                    themeManager.class.getResource("DarkTheme.css").toExternalForm()
+                    themeManager.class.getResource("/css/DarkTheme.css").toExternalForm()
             );
         } else {
             mainScene.getStylesheets().add(
-                    themeManager.class.getResource("LightTheme.css").toExternalForm()
+                    themeManager.class.getResource("/css/LightTheme.css").toExternalForm()
             );
         }
 

@@ -1,4 +1,9 @@
-// Main ui page
+package com.ksaifstack.docktask.ui;// Main ui page
+import com.ksaifstack.docktask.model.UserData;
+import com.ksaifstack.docktask.ui.LoginUi;
+import com.ksaifstack.docktask.ui.WindowBorder;
+import com.ksaifstack.docktask.util.AppTray;
+import com.ksaifstack.docktask.util.themeManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -29,7 +34,7 @@ import java.util.List;
 
 public class TaskUi {
     private final StackPane rootStack = new StackPane();
-    private static final String FONT_PATH = "/resources/fonts/Lexend.ttf";
+    private static final String FONT_PATH = "/fonts/Lexend.ttf";
     private Font lexend32 = null;
     private Font lexend14 = null;
     private Font lexend12 = null;
@@ -86,11 +91,11 @@ public class TaskUi {
 
 
     // New method that accepts WindowBorder
-    public void start(WindowBorder window,LoginUi loginUi) {
+    public void start(WindowBorder window, LoginUi loginUi) {
         setupUI(window, window.getScene(),loginUi);
 
     }
-    public void start(Stage primaryStage,LoginUi loginUi) {
+    public void start(Stage primaryStage, LoginUi loginUi) {
         WindowBorder windowBorder = new WindowBorder("DockTask - Home", rootStack, 980, 493);
         setupUI(windowBorder, windowBorder.getScene(),loginUi);
         windowBorder.show();
@@ -100,7 +105,7 @@ public class TaskUi {
 
     public void setupUI(WindowBorder window, Scene scene,LoginUi loginUi) {
 
-        try (InputStream fontStream = getClass().getResourceAsStream("/resources/fonts/Lato.ttf")) {
+        try (InputStream fontStream = getClass().getResourceAsStream("/fonts/Lato.ttf")) {
             if (fontStream == null) {
                 System.err.println("Font resource not found!");
                 lexend14 = Font.font("System", 14);
@@ -416,7 +421,7 @@ public class TaskUi {
         boolean shouldBeDark = pick.equals("Dark");
 
         scene.getStylesheets().clear();
-        String cssFile = shouldBeDark ? "DarkTheme.css" : "LightTheme.css";
+        String cssFile = shouldBeDark ? "/css/DarkTheme.css" : "/css/LightTheme.css";
         scene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
 
         if (themeManager.isDarkMode() != shouldBeDark) {

@@ -1,5 +1,6 @@
-//Calendar ui for main page should return a button with the follow parts inside of it.
+package com.ksaifstack.docktask.ui;//Calendar ui for main page should return a button with the follow parts inside of it.
 //should be able to take date and time and data based off username to display data in a calendar format.
+import com.ksaifstack.docktask.model.UserData;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -27,10 +28,10 @@ public class CalendarUi {
 
     public Pane getPane() {
 
-        lexend32 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lexend.ttf"), 32);
-        lexend14 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lexend.ttf"), 14);
-        lexend12 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lato.ttf"), 12);
-        lexend8 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lato.ttf"), 8);
+        lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 32);
+        lexend14 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 14);
+        lexend12 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lato.ttf"), 12);
+        lexend8 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lato.ttf"), 8);
 
         Pane background = new Pane();
         background.setLayoutX(243.00);

@@ -1,3 +1,7 @@
+package com.ksaifstack.docktask.util;
+
+import com.ksaifstack.docktask.model.Task;
+
 import java.util.ArrayList;
 
 /**

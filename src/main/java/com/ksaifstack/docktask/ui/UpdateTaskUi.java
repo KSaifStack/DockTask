@@ -1,4 +1,5 @@
-//Ui for updating tasks/changing tasks
+package com.ksaifstack.docktask.ui;//Ui for updating tasks/changing tasks
+import com.ksaifstack.docktask.model.UserData;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -17,16 +18,16 @@ public class UpdateTaskUi {
         this.taskname =taskname;
         this.onUpdate = onUpdate;
     }
-    Font lexend14 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lexend.ttf"), 14);
-    Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lexend.ttf"), 32);
-    Font lexend30 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Lexend.ttf"), 20);
+    Font lexend14 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 14);
+    Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 32);
+    Font lexend30 = Font.loadFont(getClass().getResourceAsStream("/fonts/Lexend.ttf"), 20);
     public Pane getContent(Font lexend14)
     {
         //Gets Tasks and copys it to a array so it display data to change.
         //updateTask(String username, String taskname, String newDescription, int newRank,String TaskGroup,LocalDateTime dueDate)
         String[] pressedtasks = new String[4];
         System.out.println("This is what update task says: "+taskname);
-        String[][]tasks=UserData.ReturnData(username);
+        String[][]tasks= UserData.ReturnData(username);
         for(String[] task: tasks){
             if(task[0].equals(taskname)){
                 pressedtasks=task;
@@ -44,7 +45,7 @@ public class UpdateTaskUi {
         pane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.15);");
 
 
-        InputStream fontStream = getClass().getResourceAsStream("/resources/fonts/Lato.ttf");
+        InputStream fontStream = getClass().getResourceAsStream("/fonts/Lato.ttf");
         if (fontStream == null) {
             System.err.println("Font resource not found!");
             lexend14 = Font.font("System", 14);

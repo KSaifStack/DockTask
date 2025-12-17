@@ -1,4 +1,4 @@
-/*
+package com.ksaifstack.docktask.util;/*
 Uses javas awt imports to allow the use of SystemTray calls.
 These calls make it possible to iconfiy the app upon exit.
 Full Support with nfx windows will be soon complete.
