@@ -245,9 +245,91 @@ In version 0.1, countdown timers for completed or removed tasks continued runnin
 - 100 MB free disk space
 - 1024x768 display resolution minimum
 
+  
+
 > **Note:** Installer includes bundled Java runtime. No external dependencies or JDK installation required.
 
+##  Building from Source
+
+### Prerequisites
+- **Java 17+** (JDK 23 recommended)
+- **Maven 3.6+** or your IDE with Maven support (IntelliJ IDEA, Eclipse, VSCode)
+-  **[NFX Library](https://github.com/xdsswar/nfx-lib)** (Needed to build window)
+
+### Quick Start
+
+#### 1. Clone the Repository
+```bash
+git clone https://github.com/KSaifStack/DockTask.git
+cd DockTask
+```
+
+#### 2. Build with Maven
+```bash
+mvn clean package
+```
+### Development Setup
+
+#### IntelliJ IDEA
+1. Open the project folder (`File` → `Open`)
+2. Maven dependencies will auto-import
+3. Run the `Main.java` class
+
+#### Eclipse
+1. Import as Maven project (`File` → `Import` → `Maven` → `Existing Maven Projects`)
+2. Right-click project → `Maven` → `Update Project`
+3. Run `Main.java`
+
+#### VS Code
+1. Open project folder
+2. Install "Java Extension Pack" and "Maven for Java"
+3. Maven will auto-detect `pom.xml` and download dependencies
+4. Run via the Run button or `F5`
+
+### Project Structure
+```
+DockTask/
+├── pom.xml                    # Maven configuration
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/ksaifstack/docktask/
+│   │   │       ├── Main.java              # Application entry point
+│   │   │       ├── model/                 # Data models (Task, User, UserData)
+│   │   │       ├── ui/                    # UI components (LoginUI, TaskUI, etc.)
+│   │   │       └── util/                  # Utilities (ThemeManager, etc.)
+│   │   └── resources/
+│   │       ├── images/                    # Icons and graphics
+│   │       └── fonts/                     # Custom fonts
+│   └── test/                              # Unit tests (coming soon)
+├── Data/                                  # User data storage 
+└── README.md
+```
+
+### Common Build Issues
+
+**Issue:** `JAVA_HOME not set`  
+**Fix:** Set your JDK path:
+```bash
+# Windows
+set JAVA_HOME=C:\Program Files\Java\jdk-23
+# Mac/Linux
+export JAVA_HOME=/usr/lib/jvm/java-23-openjdk
+```
+
+**Issue:** JavaFX modules not found  
+**Fix:** Maven handles JavaFX dependencies automatically via `pom.xml`.  
+
+Make sure you are building the project with Maven (`mvn clean package`) and **not** using `javac` directly.
+If the error mentions **NFX**, ensure that the NFX JAR is correctly downloaded and included in the project.  
+
+Refer to the official repository for setup details: https://github.com/xdsswar/nfx-lib 
+
+**Issue:** `Unsupported class file major version 67`  
+**Fix:** You need Java 17+ to build. Update your JDK.
+
 ---
+
 
 ##  Contributing
 
