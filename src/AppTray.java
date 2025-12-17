@@ -1,4 +1,9 @@
-//Allows app to be used in system tray and not close
+/*
+Uses javas awt imports to allow the use of SystemTray calls.
+These calls make it possible to iconfiy the app upon exit.
+Full Support with nfx windows will be soon complete.
+Known issues: Throws Nullpointerexception upon reopening from icon.
+ */
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
@@ -84,13 +89,19 @@ public class AppTray {
         trayIcon = new TrayIcon(trayImage, tooltip, popup);
         trayIcon.setImageAutoSize(true);
         trayIcon.addActionListener(e -> Platform.runLater(() -> {
-            if (stage.isShowing() && stage.getOpacity() > 0) {
-                hideToTray(stage);
-            } else {
-                stage.setOpacity(1);
-                stage.setIconified(false);
-                stage.show();
-                stage.toFront();
+            try {
+                if (stage.isShowing() && stage.getOpacity() > 0) {
+                    hideToTray(stage);
+                } else {
+                    stage.setOpacity(1);
+                    stage.setIconified(false);
+                    stage.show();
+                    stage.requestFocus();
+
+                }
+            }
+            catch(Exception bad){
+                System.out.println("Error while opening taskui: "+bad.getMessage());
             }
         }));
 
@@ -105,8 +116,8 @@ public class AppTray {
         stage.setIconified(true);
         stage.setOpacity(0);
         if (firstHide && trayIcon != null) {
-            trayIcon.displayMessage("PlanForge",
-                    "PlanForge is still running in the background.",
+            trayIcon.displayMessage("DockTask",
+                    "DockTask is still running in the background.",
                     TrayIcon.MessageType.INFO);
             firstHide = false;
         }

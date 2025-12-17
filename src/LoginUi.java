@@ -1,5 +1,6 @@
 //Starting Page/LoginUi/(Kareem right here)
 import java.io.InputStream;
+
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -16,31 +17,44 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.application.HostServices;
 
-public class LoginUi extends Application {
+public class LoginUi extends Application  {
 
+    private static HostServices hostServices;
     private static final String BG_COLOR = "#ffffff";
     private static final String TEXT_COLOR = "#1b1b1b";
     private static final String BORDER_COLOR = "#626262";
     private static final String FONT_PATH = "/resources/fonts/Lexend/hi;";
     private static boolean startup = true;
+    private WindowBorder appWindow;
     public LoginUi(){
     }
 
     Label timeErrorLabel = new Label(null);
 
     @Override
+
+    /*
+    This helps check if the user is going back after logging in.
+     */
     public void start(Stage primaryStage) {
+
         if(startup) {
             showSplash(() -> showMainApp(primaryStage));
             startup=false;
         }else{
+
             showMainApp(primaryStage);
         }
     }
 
+/*
+Self made splash screen using StageStyle.Transparent.
+ */
     private void showSplash(Runnable onFinish) {
         startup=false;
+        UserData.initializeData();
         Stage splashStage = new Stage(StageStyle.TRANSPARENT);
         StackPane root = new StackPane();
         root.setStyle("-fx-background-color: transparent;");
@@ -92,106 +106,119 @@ public class LoginUi extends Application {
         }
     }
 
-    private void showMainApp(Stage primaryStage) {
-        setStageIcon(primaryStage);
-        primaryStage.setTitle("PlanForge");
+    public void showMainApp(Stage primaryStage) {
+        hostServices = getHostServices();
+        if(appWindow==null) {
+            setStageIcon(primaryStage);
+            primaryStage.setTitle("DockTask");
 
-        Pane root = new Pane();
-        root.setStyle("-fx-background-color: #eeeeee;");
-        root.setPrefSize(766, 378);
-        primaryStage.setResizable(false);
+            Pane root = new Pane();
+            root.setStyle("-fx-background-color: #ffffff;");
+            root.setPrefSize(766, 378);
+            primaryStage.setResizable(false);
 
-        ImageView logo = new ImageView(new Image(getClass().getResourceAsStream("/images/logo.png")));
-        logo.setFitWidth(150);
-        logo.setPreserveRatio(true);
-        logo.setLayoutX(308); // centered horizontally for 766px width
-        logo.setLayoutY(50);  // adjust as needed
+            ImageView logo = new ImageView(new Image(getClass().getResourceAsStream("/images/lightIcon.png")));
+            logo.setFitWidth(150);
+            logo.setPreserveRatio(true);
+            logo.setLayoutX(308); // centered horizontally for 766px width
+            logo.setLayoutY(50);  // adjust as needed
 
-        root.getChildren().add(logo);
-
-
-        Font customFont = loadCustomFont(FONT_PATH, 18);
-        Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/lexend.ttf"), 32);
-        //Title
-        Label Title = new Label("PlanForge");
-        Title.setLayoutX(308);
-        Title.setLayoutY(0);
-        Title.setPrefSize(300, 60);
-        Title.setFont(lexend32 != null ? lexend32 : Font.font(36));
-        Title.setStyle("-fx-text-fill: #1b1b1b;");
-        //"OR"
-        Label element6 = new Label("--OR--");
-        element6.setLayoutX(365);
-        element6.setLayoutY(241);
-        element6.setPrefWidth(70);
-        element6.setPrefHeight(20);
-        element6.setStyle("-fx-text-fill: #1b1b1b;");
-        //Settings
-        Button settingicon = new Button("Settings");
-        settingicon.setLayoutX(660.00);
-        settingicon.setLayoutY(9.66);
-        settingicon.setPrefWidth(78.00);
-        settingicon.setPrefHeight(27.00);
-        settingicon.setDisable(false);
-        settingicon.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-        settingicon.setOnAction(e -> {
-            //Setting Actions here...
-        });
-        settingicon.setOnMouseEntered(e -> settingicon.setStyle(
-                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        settingicon.setOnMouseExited(e -> settingicon.setStyle(
-                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-
-        //LOGIN
-        Button loginBtn = new Button("Log-In");
-        loginBtn.setLayoutX(405);
-        loginBtn.setLayoutY(203.66);
-        loginBtn.setPrefWidth(116.00);
-        loginBtn.setPrefHeight(104.00);
-        loginBtn.setDisable(false);
-        loginBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-        loginBtn.setOnMouseEntered(e -> loginBtn.setStyle(
-                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        loginBtn.setOnMouseExited(e -> loginBtn.setStyle(
-                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-
-        loginBtn.setOnAction(e -> showLoginWindow(primaryStage));
-        //Sign-up
-        Button SignUp = new Button("Sign-Up");
-        SignUp.setLayoutX(245);
-        SignUp.setLayoutY(203.66);
-        SignUp.setPrefWidth(116.00);
-        SignUp.setPrefHeight(104.00);
-        SignUp.setDisable(false);
-        SignUp.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
-        SignUp.setOnAction(e ->{
-            showSignupWindow(primaryStage);
-        });
-        SignUp.setOnMouseEntered(e -> SignUp.setStyle(
-                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
-        SignUp.setOnMouseExited(e -> SignUp.setStyle(
-                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
-        ));
+            root.getChildren().add(logo);
 
 
-        root.getChildren().add(loginBtn);
-        root.getChildren().add(SignUp);
-        root.getChildren().add(Title);
-        root.getChildren().add(element6);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+            Font customFont = loadCustomFont(FONT_PATH, 18);
+            Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/lexend.ttf"), 32);
+            //Title
+            Label Title = new Label("DockTask");
+            Title.setLayoutX(308);
+            Title.setLayoutY(0);
+            Title.setPrefSize(300, 60);
+            Title.setFont(lexend32 != null ? lexend32 : Font.font(36));
+            Title.setStyle("-fx-text-fill: #1b1b1b;");
+            //"OR"
+            Label element6 = new Label("--OR--");
+            element6.setLayoutX(365);
+            element6.setLayoutY(241);
+            element6.setPrefWidth(70);
+            element6.setPrefHeight(20);
+            element6.setStyle("-fx-text-fill: #1b1b1b;");
+            //Settings
+            Button settingicon = new Button("Settings");
+            settingicon.setLayoutX(660.00);
+            settingicon.setLayoutY(9.66);
+            settingicon.setPrefWidth(78.00);
+            settingicon.setPrefHeight(27.00);
+            settingicon.setDisable(false);
+            settingicon.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
+            settingicon.setOnAction(e -> {
+                //Setting Actions here...
+            });
+            settingicon.setOnMouseEntered(e -> settingicon.setStyle(
+                    "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+            ));
+            settingicon.setOnMouseExited(e -> settingicon.setStyle(
+                    "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+            ));
+
+            //LOGIN
+            Button loginBtn = new Button("Log-In");
+            loginBtn.setLayoutX(405);
+            loginBtn.setLayoutY(203.66);
+            loginBtn.setPrefWidth(116.00);
+            loginBtn.setPrefHeight(104.00);
+            loginBtn.setDisable(false);
+            loginBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
+            loginBtn.setOnMouseEntered(e -> loginBtn.setStyle(
+                    "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+            ));
+            loginBtn.setOnMouseExited(e -> loginBtn.setStyle(
+                    "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+            ));
+
+            loginBtn.setOnAction(e -> showLoginWindow(primaryStage));
+            //Sign-up
+            Button SignUp = new Button("Sign-Up");
+            SignUp.setLayoutX(245);
+            SignUp.setLayoutY(203.66);
+            SignUp.setPrefWidth(116.00);
+            SignUp.setPrefHeight(104.00);
+            SignUp.setDisable(false);
+            SignUp.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
+            SignUp.setOnAction(e -> {
+
+                showSignupWindow(primaryStage);
+            });
+            SignUp.setOnMouseEntered(e -> SignUp.setStyle(
+                    "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+            ));
+            SignUp.setOnMouseExited(e -> SignUp.setStyle(
+                    "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+            ));
+
+
+            // Create your content
+            root.getChildren().addAll(loginBtn, SignUp, Title, element6);
+
+// Create the custom NFX window
+            appWindow =
+                    new WindowBorder("PlanForge", root, 766, 378);
+
+// Show the NFX window
+            appWindow.setWidth(766);
+            appWindow.setHeight(378);
+            appWindow.show();
+        }
+        else{
+            appWindow.toFront();
+        }
     }
 
 
+
     private void showLoginWindow(Stage primaryStage) {
-        primaryStage.setTitle("Login");
         VBox layout = createFormLayout("Welcome!", "Login", primaryStage);
-        primaryStage.setScene(new Scene(layout, 766, 378));
+        appWindow.colorChange(" ");
+        appWindow.setContent(layout);
     }
 
 
@@ -245,9 +272,8 @@ public class LoginUi extends Application {
 
                 } else if(UserData.findUser(Username,Password)==true){
                     TaskUi taskUi = new TaskUi(Username);
-                    taskUi.start(primaryStage);
-
-
+                    LoginUi self = this;
+                    taskUi.start(appWindow,self);
                 }
                 else{
                     System.out.println("ERROR: wrong password.");
@@ -270,16 +296,78 @@ public class LoginUi extends Application {
         Button backButton = new Button("Back");
         backButton.setFont(loadCustomFont(FONT_PATH, 12));
         backButton.setStyle("-fx-background-color: transparent; -fx-text-fill: " + TEXT_COLOR + ";");
-        backButton.setOnAction(e -> showMainApp(primaryStage));
+        backButton.setOnAction(e -> showBack(primaryStage));
 
         layout.getChildren().addAll(title, form,actionButton,backButton,timeErrorLabel);
         return layout;
     }
     private void showSignupWindow(Stage primaryStage) {
-        primaryStage.setTitle("Signup");
         VBox layout = createFormsLayout("Welcome!", "Signup", primaryStage);
-        primaryStage.setScene(new Scene(layout, 766, 378));
+        appWindow.colorChange(" ");
+        appWindow.setContent(layout);
     }
+    public void showBack(Stage primaryStage) {
+
+        Pane root = new Pane();
+        root.setStyle("-fx-background-color: #ffffff;");
+        root.setPrefSize(766, 378);
+
+        // Logo
+        ImageView logo = new ImageView(
+                new Image(getClass().getResourceAsStream("/images/lightIcon.png"))
+        );
+        logo.setFitWidth(150);
+        logo.setPreserveRatio(true);
+        logo.setLayoutX(308);
+        logo.setLayoutY(50);
+
+        // Title
+        Font lexend32 = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/lexend.ttf"), 32);
+        Label Title = new Label("DockTask");
+        Title.setLayoutX(308);
+        Title.setLayoutY(0);
+        Title.setPrefSize(300, 60);
+        Title.setFont(lexend32 != null ? lexend32 : Font.font(36));
+        Title.setStyle("-fx-text-fill: #1b1b1b;");
+
+        // OR label
+        Label element6 = new Label("--OR--");
+        element6.setLayoutX(365);
+        element6.setLayoutY(241);
+        element6.setStyle("-fx-text-fill: #1b1b1b;");
+
+        // Buttons
+        Button loginBtn = new Button("Log-In");
+        loginBtn.setLayoutX(405);
+        loginBtn.setLayoutY(203.66);
+        loginBtn.setPrefSize(116, 104);
+        loginBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
+        loginBtn.setOnMouseEntered(e -> loginBtn.setStyle(
+                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+        ));
+        loginBtn.setOnMouseExited(e -> loginBtn.setStyle(
+                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+        ));
+        loginBtn.setOnAction(e -> showLoginWindow(primaryStage));
+
+        Button signUpBtn = new Button("Sign-Up");
+        signUpBtn.setLayoutX(245);
+        signUpBtn.setLayoutY(203.66);
+        signUpBtn.setPrefSize(116, 104);
+        signUpBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;");
+        signUpBtn.setOnMouseEntered(e -> signUpBtn.setStyle(
+                "-fx-background-color: #d3d3d3; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+        ));
+        signUpBtn.setOnMouseExited(e -> signUpBtn.setStyle(
+                "-fx-background-color: #ffffff; -fx-text-fill: #1b1b1b; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"
+        ));
+        signUpBtn.setOnAction(e -> showSignupWindow(primaryStage));
+
+        root.getChildren().addAll(logo, Title, element6, loginBtn, signUpBtn);
+
+       appWindow.setContent(root);
+    }
+
 
 
     private VBox createFormsLayout(String titleText, String buttonText, Stage primaryStage) {
@@ -327,17 +415,17 @@ public class LoginUi extends Application {
             }else {
                 System.out.println("Username:" + username.getText());
                 System.out.println("Password: " + password.getText());
-                if(UserData.findUser(Username,Password)==false) {
-                    UserData.saveUser(Username, Password);
-                    TaskUi taskUi = new TaskUi(Username);
-                    taskUi.start(primaryStage);
-
-
-                } else if(UserData.usernameExists(Username)==true){
+                if(UserData.usernameExists(Username)==true){
                     System.out.println("ERROR: user is already registered within the system. ");
                     timeErrorLabel.setText("ERROR: user is already registered within the system.");
                     timeErrorLabel.setVisible(true);
 
+                }
+                else if(UserData.findUser(Username,Password)==false) {
+                    UserData.saveUser(Username, Password);
+                    TaskUi taskUi = new TaskUi(Username);
+                    LoginUi self = this;
+                    taskUi.start(appWindow,self);
                 }
             }
         });
@@ -353,7 +441,7 @@ public class LoginUi extends Application {
         Button backButton = new Button("Back");
         backButton.setFont(loadCustomFont(FONT_PATH, 12));
         backButton.setStyle("-fx-background-color: transparent; -fx-text-fill: " + TEXT_COLOR + ";");
-        backButton.setOnAction(e -> showMainApp(primaryStage));
+        backButton.setOnAction(e -> showBack(primaryStage));
 
         layout.getChildren().addAll(title, form, actionButton, backButton,timeErrorLabel);
         return layout;
@@ -442,6 +530,21 @@ public class LoginUi extends Application {
             System.err.println("Failed to load font: " + path);
         }
         return Font.getDefault();
+    }
+    public static HostServices getHost(){
+        return hostServices;
+    }
+    public static void openURL(String link){
+        if(hostServices==null){
+            System.out.println("Error with hostServies!(not initialized)");
+            return;
+        }
+        try{
+            hostServices.showDocument(link);
+        }
+        catch(Exception e){
+            System.out.println("Failed to open link!:'"+link+"'");
+        }
     }
 
     public static void main(String[] args) {

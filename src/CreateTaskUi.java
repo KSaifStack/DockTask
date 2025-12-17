@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -72,6 +71,7 @@ public class CreateTaskUi {
         taskNamein.setLayoutY(110);
         taskNamein.setPrefSize(220, 28);
         pane.getChildren().add(taskNamein);
+        //
 
         // Task Description
         Label descLabel = new Label("Task Description:");
@@ -81,7 +81,7 @@ public class CreateTaskUi {
         pane.getChildren().add(descLabel);
 
         TextArea descArea = new TextArea();
-        descArea.setPromptText("Write a Description!");
+        descArea.setPromptText("Write a description!");
         descArea.setLayoutX(415);
         descArea.setLayoutY(180);
         descArea.setPrefSize(300, 110);
@@ -145,7 +145,10 @@ public class CreateTaskUi {
         goBack.setPrefSize(70, 45);
         goBack.setLayoutX(410);
         goBack.setLayoutY(395);
-        goBack.setOnAction(e -> pane.setVisible(false));
+        goBack.setOnAction(e -> {
+            pane.setVisible(false);
+            ErrorMeg.setVisible(false);
+        });
         pane.getChildren().add(goBack);
 
         Button Done = createStyledButton("Create!", 615, 390, 130, 50, Font.font(lexend14.getName(), 12));

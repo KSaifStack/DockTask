@@ -1,7 +1,6 @@
 // Main ui page
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,27 +20,27 @@ import javafx.scene.control.Label;
 import java.awt.*;
 import java.io.InputStream;
 import javafx.scene.input.MouseEvent;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.List;
 
-public class TaskUi extends Application {
+public class TaskUi {
     private final StackPane rootStack = new StackPane();
     private static final String FONT_PATH = "/resources/fonts/Lexend.ttf";
     private Font lexend32 = null;
     private Font lexend14 = null;
     private Font lexend12 = null;
 
-    private Boolean keyCheck = false;
     private String username;
     private TrayIcon trayIcon;
-    private boolean darkMode = true;
+    Label Createtasktext = new Label("(Create Task)");
+    //private boolean darkMode = true;
     private final Map<String, String> lastNotifiedStage = new HashMap<>();
     private final CalendarUi calendarUi = new CalendarUi();
     private final AppTray tray = AppTray.getInstance();
-    private ScrollPane scrollPane;
 
     // UI state
     private VBox taskListContainer;
@@ -56,12 +55,14 @@ public class TaskUi extends Application {
     private final Image whiteMoonImg = new Image(getClass().getResourceAsStream("/images/whiteMoon.png"));
 
 
-    private static class TaskEntry {
+
+    private static class TaskEntry  {
         final Button backgroundButton;
         final Label dueLabel;
         final Label warningLabel;
         final String taskName;
         LocalDateTime dueTime;
+
 
         TaskEntry(Button backgroundButton, Label dueLabel, Label warningLabel, String taskName, LocalDateTime dueTime) {
             this.backgroundButton = backgroundButton;
@@ -75,16 +76,29 @@ public class TaskUi extends Application {
     private final List<TaskEntry> visibleTasks = new ArrayList<>();
 
 
-
     public TaskUi(String username) {
         this.username = username;
     }
 
-    public TaskUi() {}
-
-    @Override
-    public void start(Stage primaryStage) {
+    public TaskUi() {
         this.primaryStage = primaryStage;
+    }
+
+
+    // New method that accepts WindowBorder
+    public void start(WindowBorder window,LoginUi loginUi) {
+        setupUI(window, window.getScene(),loginUi);
+
+    }
+    public void start(Stage primaryStage,LoginUi loginUi) {
+        WindowBorder windowBorder = new WindowBorder("DockTask - Home", rootStack, 980, 493);
+        setupUI(windowBorder, windowBorder.getScene(),loginUi);
+        windowBorder.show();
+    }
+
+
+
+    public void setupUI(WindowBorder window, Scene scene,LoginUi loginUi) {
 
         try (InputStream fontStream = getClass().getResourceAsStream("/resources/fonts/Lato.ttf")) {
             if (fontStream == null) {
@@ -105,28 +119,31 @@ public class TaskUi extends Application {
         }
 
         Pane pane = new Pane();
+        //WindowBorder windowBorder = new WindowBorder("DockTask-Home",rootStack,980,493);
+        window.setTitleLabel(" ");
+        window.colorChange(" ");
+        //InputStream logoStream = getClass().getResourceAsStream("/images/logo.png");
+        //if (logoStream != null) {
+          //  primaryStage.getIcons().add(new Image(logoStream));
+        //}
 
-        InputStream logoStream = getClass().getResourceAsStream("/images/logo.png");
-        if (logoStream != null) {
-            primaryStage.getIcons().add(new Image(logoStream));
-        }
+        //primaryStage.setTitle("DockTask - Home");
 
-        primaryStage.setTitle("PlanForge - Home");
-        pane.setPrefSize(766, 378);
-        primaryStage.setResizable(false);
+        pane.setPrefSize(980, 493);
+        //primaryStage.setResizable(false);
 
-        tray.setup(primaryStage, "PlanForge", "/images/logo.png");
+        tray.setup(window, "DockTask", "/images/logo.png");
         trayIcon = tray.getTrayIcon();
 
         calendarUi.setCalendar(username);
         Pane calander = calendarUi.getPane();
 
         Platform.setImplicitExit(false);
-        primaryStage.setOnCloseRequest(event -> {
+        window.setOnCloseRequest(event -> {
             event.consume();
-            Platform.runLater(primaryStage::hide);
+            Platform.runLater(window::hide);
         });
-
+        rootStack.getChildren().clear();
         rootStack.getChildren().addAll(pane);
 
         StackPane taskContainerWrapper = new StackPane();
@@ -165,8 +182,9 @@ public class TaskUi extends Application {
         String firstWelcome = username != null && username.length() > 0 ? username.substring(0, 1).toUpperCase() : "";
         String secondWelcome = username != null && username.length() > 1 ? username.substring(1) : "";
         Label Welcome = new Label("Welcome " + firstWelcome + secondWelcome + "!");
-        Welcome.setLayoutX(12);
-        Welcome.setLayoutY(8.1640625);
+        //Used to be 14
+        Welcome.setLayoutX(45);
+        Welcome.setLayoutY(14);
         Welcome.setPrefWidth(158);
         Welcome.setPrefHeight(33);
         Welcome.setFont(lexend32);
@@ -179,13 +197,13 @@ public class TaskUi extends Application {
         lobutton.setPrefWidth(67.00);
         lobutton.setPrefHeight(30.00);
         pane.getChildren().add(lobutton);
+        Scene finalScene = scene;
         lobutton.setOnAction(e -> {
             System.out.println("Logout Button was pressed.");
-            if(themeManager.isDarkMode()) {
-                themeManager.changeTheme();
-            }
-            LoginUi LoginUi = new LoginUi();
-            LoginUi.start(primaryStage);
+            loginUi.showBack(window);
+            window.setHeight(378);
+            window.setWidth(766);
+            WindowBorder.logOut(finalScene);
         });
 
         pane.getChildren().add(calander);
@@ -199,7 +217,8 @@ public class TaskUi extends Application {
         SettingsIcon.setOnAction(e -> {
             System.out.println("Settings Button was pressed.");
             Settings Settings = new Settings(username);
-            Pane SettingPane = Settings.getContent(lexend14, lexend32);
+            TaskUi self = this;
+            Pane SettingPane = Settings.getContent(lexend14, lexend32, window,self);
             pane.getChildren().add(SettingPane);
         });
 
@@ -244,7 +263,6 @@ public class TaskUi extends Application {
         });
 
 
-        Label Createtasktext = new Label("(Create Task)");
         Createtasktext.setFont(Font.font(14));
         Createtasktext.setLayoutX(810);
         Createtasktext.setLayoutY(300);
@@ -260,7 +278,6 @@ public class TaskUi extends Application {
         LocalDateTime current = LocalDateTime.now();
         int currentHour = current.getHour();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy h:mm:ss a");
-
 
 
         ImageView sun = new ImageView();
@@ -285,7 +302,7 @@ public class TaskUi extends Application {
                 moon.setImage(moonImg);
             }
             int hour = LocalDateTime.now().getHour();
-            if(hour >= 18 || hour < 6){
+            if (hour >= 18 || hour < 6) {
                 iconView.setImage(moon.getImage());
                 iconView.setFitWidth(55);
                 iconView.setFitHeight(55);
@@ -300,69 +317,72 @@ public class TaskUi extends Application {
         });
 
         // sun and moon sizes revamped
+
         sun.setFitWidth(65);
         sun.setFitHeight(65);
         sun.setPreserveRatio(false);
+
         moon.setFitWidth(55);
         moon.setFitHeight(55);
         moon.setPreserveRatio(false);
+
         HBox.setMargin(sun, new Insets(-9, 0, 0, 0));
         HBox.setMargin(moon, new Insets(-7, 0, 0, 0));
+
         timeLabel.setPrefWidth(351);
         timeLabel.setPrefHeight(45);
         timeLabel.setStyle("-fx-font-size: 34px;");
         timeLabel.setFont(lexend32);
+
         timeLabelBox.getChildren().add(timeLabel);
 
 
-
-        if(currentHour>=18){
+        if (currentHour >= 18|| currentHour < 6) {
             timeLabelBox.setSpacing(2);
             iconView.setImage(moon.getImage());
             iconView.setTranslateY(-4);
             iconView.setFitWidth(55);
             iconView.setFitHeight(55);
-            timeLabelBox.setTranslateY(0);
+            timeLabelBox.setTranslateY(-5);
         } else {
             iconView.setImage(sun.getImage());
             iconView.setTranslateY(-4);
             iconView.setFitWidth(65);
             iconView.setFitHeight(65);
-            timeLabelBox.setTranslateY(-5);
+            timeLabelBox.setTranslateY(-10);
+            timeLabelBox.setTranslateX(5);
         }
         timeLabelBox.getChildren().add(iconView);
-        clockTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e ->{
+        clockTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             String[][] tasks = UserData.ReturnData(username);
-            if(scrollPane!=null) {
+            if (scrollPane != null) {
                 if (tasks.length > 3) {
                     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-                }
-                else{
+                } else {
                     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
                 }
             }
             timeLabel.setText(LocalDateTime.now().format(formatter));
-            int x =timeLabel.getText().length();
-            int hour= LocalDateTime.now().getHour();
-            if(timeLabel.getText().length()>21){
-                System.out.println(x);
+            int x = timeLabel.getText().length();
+            int hour = LocalDateTime.now().getHour();
+            if (timeLabel.getText().length() > 21) {
                 timeLabel.setPrefWidth(380);
-            }
-            else{
+            } else {
                 timeLabel.setPrefWidth(351);
             }
-            if(hour >= 18 || hour < 6){
+            if (hour >= 18 || hour < 6) {
                 iconView.setImage(moon.getImage());
                 iconView.setFitWidth(55);
                 iconView.setFitHeight(55);
                 iconView.setTranslateY(-4);
-                timeLabelBox.setTranslateY(0);
+                timeLabelBox.setTranslateY(-5);
             } else {
                 iconView.setImage(sun.getImage());
                 iconView.setFitWidth(65);
                 iconView.setFitHeight(65);
                 iconView.setTranslateY(-4);
-                timeLabelBox.setTranslateY(-5);
+                timeLabelBox.setTranslateY(-10);
+
             }
 
 
@@ -373,13 +393,12 @@ public class TaskUi extends Application {
         pane.getChildren().add(timeLabelBox);
 
 
-
-
-
-
         pane.setPrefSize(980, 493);
-        Scene scene = new Scene(rootStack, 980, 493);
-
+        scene = window.getScene();
+        window.setContent(rootStack);
+        window.setTitle("DockTask - Home");
+        window.setWidth(990);
+        window.setHeight(531);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.isControlDown() && ev.isShiftDown() && ev.getCode() == KeyCode.C) {
                 if (createTaskUi == null || !createTaskUi.isOpen()) {
@@ -390,14 +409,32 @@ public class TaskUi extends Application {
         });
 
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(getClass().getResource("LightTheme.css").toExternalForm());
+        String pick=UserData.importTheme(username);
+
+
+
+        boolean shouldBeDark = pick.equals("Dark");
+
+        scene.getStylesheets().clear();
+        String cssFile = shouldBeDark ? "DarkTheme.css" : "LightTheme.css";
+        scene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
+
+        if (themeManager.isDarkMode() != shouldBeDark) {
+            themeManager.changeTheme();
+        }
+
         themeManager.setScene(scene);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+
+
+        //primaryStage.setScene(scene);
+        //primaryStage.show();
+        window.show();
 
         startGlobalCountdown();
 
-        primaryStage.iconifiedProperty().addListener((obs, wasIcon, isIcon) -> {
+
+        //Stops app from building up unwanted memory while idle.
+        window.iconifiedProperty().addListener((obs, wasIcon, isIcon) -> {
             if (globalCountdownTimeline != null) {
                 if (isIcon) globalCountdownTimeline.pause();
                 else globalCountdownTimeline.play();
@@ -411,6 +448,11 @@ public class TaskUi extends Application {
     }
 
 
+    public void updateRun(){
+        refreshTaskList();
+        calendarUi.updateCal();
+        System.gc();
+    }
     private void refreshTaskList() {
         // Clear UI and data
         if (taskListContainer != null) {
@@ -574,7 +616,7 @@ public class TaskUi extends Application {
                 String taskKey = entry.taskName + "_" + due.toString();
                 if (stage != null && !stage.equals(lastNotifiedStage.get(taskKey))) {
                     lastNotifiedStage.put(taskKey, stage);
-                    showNotification("PlanForge - " + entry.taskName, buildMessage(stage, entry.taskName));
+                    showNotification("DockTask - " + entry.taskName, buildMessage(stage, entry.taskName));
                 }
             }
         }));
@@ -583,6 +625,13 @@ public class TaskUi extends Application {
         globalCountdownTimeline.play();
     }
 
+    public void createTaskVisabitly(boolean pick){
+        if(!pick){
+            Createtasktext.setVisible(false);
+        }else {
+            createTaskVisabitly(true);
+        }
+    }
     private String GroupGiver(String groupName) {
         String[] colors = {"#FFA500", "#228B22", "#000080"};
         int index = Math.abs(groupName.toLowerCase().hashCode()) % colors.length;
@@ -623,8 +672,5 @@ public class TaskUi extends Application {
             }
         }
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
+

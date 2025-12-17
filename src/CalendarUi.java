@@ -66,8 +66,7 @@ public class CalendarUi {
             colBg.setPrefSize(65, 330);
             colBg.setTranslateX(i * 65);
             colBg.setTranslateY(50);
-            colBg.setStyle("-fx-border-color: #626262; -fx-border-width: 1px 1px 0px 1px;");
-            colBg.setId("noHoverBtn");
+            colBg.setId("CalendarBut");
             background.getChildren().add(colBg);
 
             Label dayLabel = new Label(days[i]);
@@ -134,7 +133,7 @@ public class CalendarUi {
             for (int i = 1; i <= totalCells; i++) {
                 Pane cell = new Pane();
                 cell.setStyle(" -fx-border-color: #626262; -fx-border-radius: 4px; -fx-border-width: 1px;");
-                cell.setOnMouseEntered(e -> cell.setStyle("-fx-background-color: #d3d3d3; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-border-width: 1px;"));
+                cell.setOnMouseEntered(e -> cell.setStyle("-fx-background-color: #d3d3d3; -fx-border-color: #626262; -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-border-width: 1px;"));
                 cell.setOnMouseExited(e -> cell.setStyle(" -fx-border-color: #626262; -fx-border-radius: 4px; -fx-border-width: 1px;"));
                 cell.setPrefSize(52, 45);
 

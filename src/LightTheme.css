@@ -26,6 +26,31 @@
 }
 #noHoverBtn {
     -fx-background-color: #ffffff;
+
+}
+
+
+
+#noBorderBtn{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-border-color: transparent;
+    -fx-font-size: 14
+}
+#noBorderBtn:hover {
+ -fx-background-color: #d3d3d3;
+}
+#CalendarBut{
+ -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-border-color: #626262;
+    -fx-font-size: 15;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-border-width: 1px 1px 0px 1px;
+}
+#CalendarBut:hover:{
+-fx-background-color: #ffffff;
 }
 
 #noHoverBtn:hover {
@@ -222,4 +247,3 @@
 .text-field:focused {
     -fx-border-color: #626262;
 }
-

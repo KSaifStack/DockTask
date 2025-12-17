@@ -4,17 +4,17 @@
  * Tasks: Title(Name of Task), --
 *Description(An option to put more information or hyperlinks for the task),--
  Due Date(What day this task is due or is happening), 
-Priority(will be optional, but if prompted, 
-it will put that task over other task depending in what category that task is in ), --
-Status(Not complete/complete) and all task should be removable at any given moment --
-Categories: Work(by using priority, the user can give priority to some assessments over the other)-- 
+Priority via Ranks
+it will put that task over other task depending in what category/group that the task is in ), --
+ Task are removable at any given moment
+Categories: Made by the user allowing complete experience--
 Reminders: Notifications for upcoming deadlines
 Search & Filter: Categorization, Priority-based Filtering --
 Progress Tracking: Data Persistence will allow logins --
 
  * 
- * @author Kareem 
- * @version August 26, 2025
+ * @author KsaifStack
+ * @version 0.5.0
  */
 
  import java.time.LocalDateTime;

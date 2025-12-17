@@ -1,76 +1,203 @@
-//UI for setting features
-import javafx.geometry.Pos;
+
+/**
+Allows the user to modify the following options:
+@code Dark Mode-Allows user to change themes
+@code Export data-Allows user to get a clone of their current data to store
+@code Import data-Allows user to import data folders
+@code Refresh Data-Allows Allows users to refresh taskui in case of ui issues
+@code Remove CreateTask Text-Gives user the option to display createtask text or not
+@code Exit app-Allows user to exit the app
+Remove create task text at the bottom
+
+ **/
+
+import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import java.util.List;
-import java.util.ArrayList;
-import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import javafx.application.HostServices;
+import javafx.stage.DirectoryChooser;
+
+import java.io.File;
+import java.io.IOException;
+
 
 public class Settings {
     private String username = null;
+    private HostServices Host;
+    private Confirmation confirmation = new Confirmation();
+
     //Runnable
     public Settings(String username){
         this.username=username;
     }
-    public Pane getContent(Font lexend14,Font lexend32){
+    public Pane getContent(Font lexend14,Font lexend32,WindowBorder window,TaskUi t){
+        //Allows for grayed out background
         Pane pane = new Pane();
-        pane.setPrefSize(980, 493);
+        pane.setPrefSize(2000, 2000);
         pane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.15);");
-        //--
+
+        //Main Setting Region
         Region background = new Region();
         background.setLayoutX(165);
         background.setLayoutY(10);
         background.setPrefSize(605, 372);
         background.getStyleClass().add("region");
 
-        // full height to avoid bottom gap
         pane.getChildren().add(background);
 
         Button settingsLabel = new Button("Settings");
         settingsLabel.setPrefSize(192,59);
         settingsLabel.setFont(lexend32);
-        settingsLabel.setLayoutX(369);
-        settingsLabel.setLayoutY(17);
+        settingsLabel.setLayoutX(370);
+        settingsLabel.setLayoutY(15);
         settingsLabel.setId("noHoverBtn");
 
         pane.getChildren().add(settingsLabel);
 
-        //--
-        Button back = new Button("Back");
-        back.setPrefSize(73,60);
-        back.setFont(lexend14);
-        back.setLayoutX(172);
-        back.setLayoutY(317);
+        //Back to the Main pane(TaskUi)
+
+        /*
+        This will use a Hbox to store the setting buttons.
+        There are 6 setting buttons I want to add, so I will make a Hbox.
+        which will hold two VBoxs each.
+        afterwords I will take the Hbox and bind it to a scrollPane.
+         */
+        HBox settingHolder= new HBox(90);
+        ScrollPane settingsView = new ScrollPane(settingHolder);
+        settingsView.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        settingsView.setFitToWidth(true);
+        settingsView.setStyle("-fx-border-color: transparent");
+        settingsView.setPrefSize(510,180);
+        //settingsView.setMaxHeight(200);
+        settingsView.setLayoutX(251);
+        settingsView.setLayoutY(115);
+        //Left Side
+        VBox leftSide = new VBox(30);
+        //Right Side
+        VBox rightSide = new VBox(30);
 
 
-        back.setOnAction(e->{
-            pane.setVisible(false);
+
+
+        //Button one: Dark Mode
+        //Allows user to switch between the Dark theme and Light theme
+        //Subject to change for plugin migration
+        Button darkswitch = createSet("Dark Theme", lexend14);
+        if(themeManager.isDarkMode()){
+            darkswitch.setText("Light Theme");
+        }
+        else{
+            darkswitch.setText("Dark Theme");
+        }
+        darkswitch.setOnAction(e -> {
+            themeManager.changeTheme();
         });
 
-        pane.getChildren().add(back);
-        //--
-        Button darkswitch =new Button("Dark Mode");
-        darkswitch.setPrefSize(164,68);
-        darkswitch.setFont(lexend14);
-        darkswitch.setLayoutX(195);
-        darkswitch.setLayoutY(100);
-        darkswitch.setOnAction(e->{
-            if(themeManager.isDarkMode()==false){
-                themeManager.changeTheme();
-                darkswitch.setText("Dark Mode");
-            } else{
-                themeManager.changeTheme();
-                darkswitch.setText("Light Mode");
+        themeManager.addThemeChangeListener(() -> {
+            if(themeManager.isDarkMode()){
+                darkswitch.setText("Light Theme");
+
+            }
+            else{
+                darkswitch.setText("Dark Theme");
+
             }
         });
 
 
-        pane.getChildren().add(darkswitch);
-        //--
-        Button version = new Button("0.3v");
+
+        //Button two: Export Data
+        //Allows user to clone current data and save it on their computer.
+        Button exportData =createSet("Export Data",lexend14);
+        exportData.setOnAction(e->{
+            DirectoryChooser folderPick = new DirectoryChooser();
+            folderPick.setTitle("Export Data");
+            File selectedFile = folderPick.showDialog(window);
+            if(selectedFile!=null){
+                Pane n=confirmation.check("Export Data",selectedFile.getPath(),lexend14,()->{
+                    if(UserData.exportData(selectedFile)){
+                        System.out.println("Data exported!");
+                    }
+                });
+                pane.getChildren().add(n);
+
+
+            }
+        });
+
+        //Button three: Import Data
+        //Allows user to Import Data into the application.
+        //Since this will require a restart this will need the (confirmation class).
+        Button importData =createSet("Import Data",lexend14);
+        importData.setOnAction(e->{
+            DirectoryChooser folderPick = new DirectoryChooser();
+            folderPick.setTitle("Import Data");
+            folderPick.setInitialDirectory(UserData.getDatapath());
+            File selectedFile = folderPick.showDialog(window);
+            if(selectedFile != null) {
+                    Pane conPane= confirmation.check("Import Data",selectedFile.getPath(),lexend14,()->{
+                        try {
+                            UserData.setDataPath(selectedFile,username);
+                            t.updateRun();
+                        } catch (IOException ex) {
+                            System.out.println("Error with getting file!");
+                            System.out.println(ex.getMessage());
+                        }
+
+                    });
+                     pane.getChildren().add(conPane);
+            }
+
+            //Conformation Class here
+            //Then user Data will handle it
+            //Once handled application will restart
+        });
+
+        //Button four: Refresh Data
+        //Allows user to reopen taskui as if its being open for the first time
+        //Solves ui issues
+        Button refreshApp = createSet("Refresh App",lexend14);
+        refreshApp.setOnAction(e->{
+            System.gc();
+            t.updateRun();
+            System.gc();
+        });
+
+
+
+        //Button six: Exit App
+        //Allows the user the close the application through settings.
+        //(Needs conformation class)
+        Button exitApp =createSet("Exit",lexend14);
+        exitApp.setOnAction(e->{
+            Pane c = confirmation.check("Exit",null,lexend14,()->{
+                Platform.exit();
+                System.exit(0);
+
+            });
+            pane.getChildren().add(c);
+        });
+
+        //Button seven: Remove Create Task text.
+        //In main ui there is a button below which as '(Create Task)'.
+        //This button will allow user to remove it or not.
+        Button textToggle = createSet("Hide Create Text",lexend14);
+        textToggle.setOnAction(e->{
+            if(t.Createtasktext.isVisible()){
+             t.Createtasktext.setVisible(false);
+            }
+            else{
+                t.Createtasktext.setVisible(true);
+            }
+        });
+
+        leftSide.getChildren().addAll(darkswitch,importData,refreshApp);
+        rightSide.getChildren().addAll(textToggle,exportData,exitApp);
+        settingHolder.getChildren().addAll(leftSide,rightSide);
+
+        //Version Button
+        Button version = new Button("0.5v");
         version.setPrefSize(50,29);
         version.setFont(lexend14);
         version.setLayoutX(710);
@@ -78,17 +205,55 @@ public class Settings {
         version.setId("noHoverBtn");
         pane.getChildren().add(version);
 
-        //--
+        //WaterMark Button
         Button WaterMark = new Button("@KSaifStack");
         WaterMark.setPrefSize(100,25);
         WaterMark.setFont(lexend14);
         WaterMark.setLayoutY(15);
         WaterMark.setLayoutX(660);
         WaterMark.setId("noHoverBtn");
+        WaterMark.setTooltip(new Tooltip("Visit my GitHub!"));
+        WaterMark.setOnMouseEntered(e->{
+            WaterMark.setStyle("-fx-underline: true;-fx-cursor: hand;");
+        });
+        WaterMark.setOnMouseExited(e->{
+            WaterMark.setStyle("-fx-underline: false;");
+        });
+        WaterMark.setOnAction(e->{
+            LoginUi.openURL("https://github.com/KSaifStack");
+        });
+
+        //Back Button
+        Button back = new Button("Back");
+        back.setPrefSize(73,45);
+        back.setFont(lexend14);
+        back.setLayoutX(172);
+        back.setLayoutY(330);
+        back.setOnAction(e->{
+            String currentTheme="Light";
+            if(themeManager.isDarkMode()){
+                currentTheme="Dark";
+            }
+            else{
+                currentTheme="Light";
+            }
+            UserData.updateSet(username, currentTheme);
+            pane.setVisible(false);
+        });
+
+        pane.getChildren().add(back);
+
         pane.getChildren().add(WaterMark);
 
-
+        pane.getChildren().add(settingsView);
         return pane;
+    }
+    public Button createSet(String text,Font font){
+        Button btn = new Button(text);
+        btn.setPrefSize(164,68);
+        btn.setFont(font);
+        return btn;
+
     }
 
 
