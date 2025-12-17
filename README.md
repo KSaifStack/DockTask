@@ -61,6 +61,7 @@ https://github.com/user-attachments/assets/67e9159e-ff12-4f21-9128-568c9d12a31a
 
 > **Self-contained installer** — No JDK installation required. Everything is bundled.
 
+> **NOTE!** If you run the installer in administration mode, DockTask can only save data with administration!
 ---
 
 ##  Features
