@@ -249,6 +249,8 @@ In version 0.1, countdown timers for completed or removed tasks continued runnin
 
 > **Note:** Installer includes bundled Java runtime. No external dependencies or JDK installation required.
 
+---
+
 ##  Building from Source
 
 ### Prerequisites
